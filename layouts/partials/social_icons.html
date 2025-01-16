@@ -1,8 +1,16 @@
 <div class="social-icons" {{ with .align}}align="{{.}}" {{- end }}>
     {{- range site.Params.socialIcons }}
+    {{- if eq .name "email" }}
+    <!-- Email icon -->
+    <a href="#" class="copy-email" onclick="return false;" title="{{ .title | default "Click to copy email" }}">
+        {{ partial "svg.html" . }}
+    </a>
+    {{- else }}
+    <!-- other icon -->
     <a href="{{ trim .url " " | safeURL }}" target="_blank" rel="noopener noreferrer me"
         title="{{ (.title | default .name) | title }}">
         {{ partial "svg.html" . }}
     </a>
+    {{- end }}
     {{- end }}
 </div>

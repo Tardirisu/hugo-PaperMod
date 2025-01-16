@@ -142,3 +142,20 @@
     });
 </script>
 {{- end }}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const copyEmailButton = document.querySelector(".copy-email");
+        if (copyEmailButton) {
+            copyEmailButton.addEventListener("click", function () {
+                const email = "tardirisu@tuta.io"; // 替换为你的邮箱地址
+                navigator.clipboard.writeText(email).then(() => {
+                    alert("Email address copied to clipboard!");
+                }).catch(err => {
+                    console.error("Failed to copy email:", err);
+                });
+            });
+        }
+    });
+</script>
+
