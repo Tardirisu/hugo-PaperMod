@@ -5,6 +5,11 @@
     <a href="#" class="copy-email" onclick="return false;" title="{{ .title | default "Click to copy email" }}">
         {{ partial "svg.html" . }}
     </a>
+    {{- else if eq .name "kofi" }}
+    <!-- Ko-fi icon -->
+    <a href="#" class="ko-fi" onclick="toggleKofiPanel(); return false;" title="{{ .title | default "Support Me on Ko-fi" }}">
+        {{ partial "svg.html" . }}
+    </a>
     {{- else }}
     <!-- other icon -->
     <a href="{{ trim .url " " | safeURL }}" target="_blank" rel="noopener noreferrer me"

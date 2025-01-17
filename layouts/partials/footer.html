@@ -33,34 +33,48 @@
 {{- partial "extend_footer.html" . }}
 
 <script>
-    let menu = document.getElementById('menu')
+    // Save menu scroll position
+    const menu = document.getElementById("menu");
     if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
+      // Restore scroll position
+      menu.scrollLeft = localStorage.getItem("menu-scroll-position") || 0;
+  
+      // Listen to scroll events and save the scroll position
+      menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+      };
     }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
+  
+    // Add smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+  
+        // Extract the target ID from the href attribute
+        const targetId = this.getAttribute("href").substr(1);
+        const targetElement = document.querySelector(`[id='${decodeURIComponent(targetId)}']`);
+  
+        // If the target element exists, perform scrolling
+        if (targetElement) {
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            targetElement.scrollIntoView(); // Scroll instantly if reduced motion is preferred
+          } else {
+            targetElement.scrollIntoView({ behavior: "smooth" }); // Smooth scrolling
+          }
+  
+          // Update browser history
+          if (targetId === "top") {
+            history.replaceState(null, null, " "); // Clear the URL fragment
+          } else {
+            history.pushState(null, null, `#${targetId}`); // Add the fragment to the URL
+          }
+        } else {
+          console.warn(`Element with id '${targetId}' not found.`);
+        }
+      });
     });
-
-</script>
+  </script>
+  
 
 {{- if (not site.Params.disableScrollToTop) }}
 <script>
@@ -158,4 +172,26 @@
         }
     });
 </script>
+
+  
+<script>
+    // show panel
+    function toggleKofiPanel() {
+      var overlay = document.getElementById('kofi-overlay');
+      overlay.style.display = (overlay.style.display === 'none' || overlay.style.display === '') ? 'block' : 'none';
+    }
+  
+    // bond close event
+    document.getElementById('close-kofi').addEventListener('click', function() {
+      document.getElementById('kofi-overlay').style.display = 'none';
+    });
+  
+    // click overlay to close
+    document.getElementById('kofi-overlay').addEventListener('click', function(event) {
+      if (event.target === this) { // ensure only close when click overlay
+        this.style.display = 'none';
+      }
+    });
+  </script>
+  
 
