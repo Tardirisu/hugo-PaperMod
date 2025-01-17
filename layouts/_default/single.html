@@ -1,6 +1,20 @@
 {{- define "main" }}
 
 <article class="post-single">
+  <div class="lang-switch">
+    {{ if .Params.alternate }}
+        <a href="{{ .Params.alternate }}">
+            {{ if eq .Lang "en" }}
+                <!-- 查看中文版 -->
+            {{ else }}
+                <!-- View in English -->
+            {{ end }}
+        </a>
+    {{ else }}
+        <span>No alternate language available</span>
+    {{ end }}
+</div>
+
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
     <h1 class="post-title entry-hint-parent">

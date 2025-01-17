@@ -20,6 +20,16 @@
     {{- end }}
     {{- end }}
   </h1>
+
+  <!-- Language switch -->
+  <div class="lang-switch">
+    {{ if eq .Lang "en" }}
+    <a href="/zh/archives/" title="查看中文版">查看中文版</a>
+    {{ else }}
+    <a href="/en/archives/" title="View in English">View in English</a>
+    {{ end }}
+  </div>
+
   {{- if .Description }}
   <div class="post-description">
     {{ .Description }}
@@ -27,7 +37,8 @@
   {{- end }}
 </header>
 
-{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages := where (where site.RegularPages "Type" "in" site.Params.mainSections) "Lang" .Lang }}
+
 
 {{- if site.Params.ShowAllPagesInArchive }}
 {{- $pages = site.RegularPages }}
