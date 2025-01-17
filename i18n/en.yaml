@@ -31,3 +31,9 @@
 
 - id: code_copied
   translation: "copied!"
+
+- id: searchPageTitle
+  translation: "Search"
+
+- id: searchPlaceholder
+  translation: "Type to search..."
