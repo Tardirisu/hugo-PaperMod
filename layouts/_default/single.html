@@ -76,4 +76,21 @@
   {{- end }}
 </article>
 
+<script src="https://giscus.app/client.js"
+    data-repo="your-username/your-repo"
+    data-repo-id="your-repo-id"
+    data-category="General"
+    data-category-id="your-category-id"
+    data-mapping="specific"
+    data-term="{{ .Permalink | replace "/zh/" "/en/" }}"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="light"
+    crossorigin="anonymous"
+    async>
+</script>
+
+
 {{- end }}{{/* end main */}}
