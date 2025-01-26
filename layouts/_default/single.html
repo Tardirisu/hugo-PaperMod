@@ -1,5 +1,14 @@
 {{- define "main" }}
 
+{{ if .Params.password }}
+  <script>
+    var password = prompt("PLEASE ENTER PASSWORD：");
+    if (password !== "{{ .Params.password }}") {
+      document.body.innerHTML = "<h1>ACCESS DENIED</h1>";
+    }
+  </script>
+{{ end }}
+
 <article class="post-single">
   <div class="lang-switch">
     {{ if .Params.alternate }}
@@ -92,7 +101,6 @@
         crossorigin="anonymous"
         async>
 </script>
-
 
 
 {{- end }}{{/* end main */}}
